@@ -767,19 +767,39 @@
           });
         }
 
-        // ── WebP 파일에서 VP8/VP8L 비트스트림 청크 추출 ──
+        // ── WebP 파일에서 ANMF용 프레임 데이터(ALPH? + VP8/VP8L) 추출 ──
         function extractWebpFrameData(bytes) {
           if (bytes.length < 20) return null;
           const tag = s => String.fromCharCode(bytes[s], bytes[s+1], bytes[s+2], bytes[s+3]);
           if (tag(0) !== 'RIFF' || tag(8) !== 'WEBP') return null;
           const view = new DataView(bytes.buffer);
           const firstChunk = tag(12);
+
           if (firstChunk === 'VP8 ' || firstChunk === 'VP8L') {
+            // 단순 WebP: VP8/VP8L 청크 전체 반환
             const size = view.getUint32(16, true);
             return bytes.slice(12, 20 + size + (size % 2));
           } else if (firstChunk === 'VP8X') {
+            // 확장 WebP: ICCP/EXIF/XMP 등을 건너뛰고 ALPH + VP8/VP8L만 수집
             const vp8xSize = view.getUint32(16, true);
-            return bytes.slice(20 + vp8xSize + (vp8xSize % 2));
+            let offset = 20 + vp8xSize + (vp8xSize % 2);
+            const parts = [];
+            while (offset + 8 <= bytes.length) {
+              const cid = tag(offset);
+              const csz = view.getUint32(offset + 4, true);
+              const padded = csz + (csz % 2);
+              if (cid === 'ALPH' || cid === 'VP8 ' || cid === 'VP8L') {
+                parts.push(bytes.slice(offset, offset + 8 + padded));
+              }
+              offset += 8 + padded;
+              if (cid === 'VP8 ' || cid === 'VP8L') break;
+            }
+            if (parts.length === 0) return null;
+            const total = parts.reduce((s, p) => s + p.length, 0);
+            const out = new Uint8Array(total);
+            let pos = 0;
+            for (const p of parts) { out.set(p, pos); pos += p.length; }
+            return out;
           }
           return null;
         }
