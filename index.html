@@ -535,6 +535,10 @@
       const durationMs = getGifDurationMs(buffer);
       const objectUrl = URL.createObjectURL(item.file);
       const img = new Image();
+      // DOM에 추가해야 브라우저가 GIF를 실제로 애니메이션함
+      img.style.cssText = 'position:fixed;left:-9999px;top:-9999px;pointer-events:none';
+      document.body.appendChild(img);
+      const cleanup = () => { if (img.parentNode) img.parentNode.removeChild(img); URL.revokeObjectURL(objectUrl); };
       img.onload = () => {
         const canvas = document.createElement('canvas');
         canvas.width  = img.naturalWidth;
@@ -548,8 +552,7 @@
           recorder = new MediaRecorder(stream, { mimeType });
         } catch (e) {
           setStatus(item, 'error');
-          URL.revokeObjectURL(objectUrl);
-          resolve(); return;
+          cleanup(); resolve(); return;
         }
         const chunks = [];
         recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
@@ -559,8 +562,7 @@
           setStatus(item, 'done');
           updateSizeInfo(item);
           updateBottomBar();
-          URL.revokeObjectURL(objectUrl);
-          resolve();
+          cleanup(); resolve();
         };
         recorder.start();
         let startTime = null;
@@ -576,7 +578,7 @@
         }
         requestAnimationFrame(draw);
       };
-      img.onerror = () => { setStatus(item, 'error'); URL.revokeObjectURL(objectUrl); resolve(); };
+      img.onerror = () => { setStatus(item, 'error'); cleanup(); resolve(); };
       img.src = objectUrl;
     });
   }
