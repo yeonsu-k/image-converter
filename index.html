@@ -323,7 +323,7 @@
 <div class="container">
   <header>
     <h1>이미지 <span>변환 · 압축</span> 도구</h1>
-    <p>PNG · JPG · WebP 변환 및 품질 압축 — 모든 처리는 브라우저에서 이루어집니다</p>
+    <p>PNG · JPG · WebP 변환 및 품질 압축 · GIF → WebM 변환 — 모든 처리는 브라우저에서 이루어집니다</p>
   </header>
 
   <!-- 업로드 영역 -->
@@ -343,6 +343,7 @@
         <button class="fmt-btn active" data-fmt="image/jpeg">JPG</button>
         <button class="fmt-btn" data-fmt="image/png">PNG</button>
         <button class="fmt-btn" data-fmt="image/webp">WebP</button>
+        <button class="fmt-btn" data-fmt="video/webm" title="GIF 파일만 WebM으로 변환됩니다">WebM <span style="font-size:10px;opacity:0.65;font-weight:500">GIF전용</span></button>
       </div>
     </div>
     <div class="setting-group">
@@ -383,7 +384,7 @@
   let selectedFmt = 'image/jpeg';
   let quality = 0.85;
 
-  const extMap = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
+  const extMap = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'video/webm': 'webm' };
 
   // ── DOM ──
   const dropZone    = document.getElementById('drop-zone');
@@ -507,8 +508,90 @@
     updateUI();
   }
 
+  // ── GIF 총 재생 시간 파싱 ──
+  function getGifDurationMs(buffer) {
+    const data = new Uint8Array(buffer);
+    let ms = 0;
+    for (let i = 0; i < data.length - 5; i++) {
+      // Graphic Control Extension: 0x21 0xF9 0x04
+      if (data[i] === 0x21 && data[i+1] === 0xF9 && data[i+2] === 0x04) {
+        const delay = (data[i+4] | (data[i+5] << 8)) * 10; // 1/100s → ms
+        ms += delay || 100; // delay=0인 프레임은 100ms로 처리
+        i += 7;
+      }
+    }
+    return ms || 1000;
+  }
+
+  // ── GIF → WebM 변환 ──
+  async function convertGifToWebm(item) {
+    setStatus(item, 'loading');
+    return new Promise(async (resolve) => {
+      if (!window.MediaRecorder) {
+        setStatus(item, 'error');
+        resolve(); return;
+      }
+      const buffer = await item.file.arrayBuffer();
+      const durationMs = getGifDurationMs(buffer);
+      const objectUrl = URL.createObjectURL(item.file);
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width  = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        const mimeType = MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
+          ? 'video/webm;codecs=vp9' : 'video/webm';
+        let stream, recorder;
+        try {
+          stream   = canvas.captureStream(30);
+          recorder = new MediaRecorder(stream, { mimeType });
+        } catch (e) {
+          setStatus(item, 'error');
+          URL.revokeObjectURL(objectUrl);
+          resolve(); return;
+        }
+        const chunks = [];
+        recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+        recorder.onstop = () => {
+          item.blob = new Blob(chunks, { type: 'video/webm' });
+          item.outputFmt = 'video/webm';
+          setStatus(item, 'done');
+          updateSizeInfo(item);
+          updateBottomBar();
+          URL.revokeObjectURL(objectUrl);
+          resolve();
+        };
+        recorder.start();
+        let startTime = null;
+        function draw(ts) {
+          if (!startTime) startTime = ts;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+          if (ts - startTime < durationMs) {
+            requestAnimationFrame(draw);
+          } else {
+            recorder.stop();
+          }
+        }
+        requestAnimationFrame(draw);
+      };
+      img.onerror = () => { setStatus(item, 'error'); URL.revokeObjectURL(objectUrl); resolve(); };
+      img.src = objectUrl;
+    });
+  }
+
   // ── 변환 (단일) ──
   async function convertItem(item) {
+    if (selectedFmt === 'video/webm') {
+      if (item.file.type !== 'image/gif') {
+        setStatus(item, 'error');
+        const badge = document.getElementById('badge-' + item.id);
+        if (badge) { badge.title = 'GIF 파일만 WebM으로 변환할 수 있습니다'; badge.textContent = 'GIF만 가능'; }
+        return;
+      }
+      return convertGifToWebm(item);
+    }
     setStatus(item, 'loading');
     return new Promise(resolve => {
       const img = new Image();
