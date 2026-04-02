@@ -41,16 +41,23 @@ export function updateSizeInfo(item) {
 }
 
 export function updateUI() {
-  const hasItems = state.items.length > 0;
+  const tab = state.activeTab;
+  const activeItems = state.items.filter((i) => i.tab === tab);
+  const hasItems = activeItems.length > 0;
+
   document.getElementById('settings-panel').classList.toggle('visible', hasItems);
   document.getElementById('bottom-bar').classList.toggle('visible', hasItems);
-  document.getElementById('empty-tip').style.display = !hasItems ? 'block' : 'none';
-  const hasGif = state.items.some((i) => i.file.type === 'image/gif');
+  document.getElementById(`empty-tip-${tab}`).style.display = !hasItems ? 'block' : 'none';
+
+  const hasGif = state.items.some((i) => i.tab === 'anim');
   document.getElementById('loop-group').style.display = hasGif ? '' : 'none';
+
   updateBottomBar();
 }
 
 export function updateBottomBar() {
-  document.getElementById('bar-count').textContent = state.items.length;
-  document.getElementById('bar-done').textContent = state.items.filter(i => i.status === 'done').length;
+  const tab = state.activeTab;
+  const activeItems = state.items.filter((i) => i.tab === tab);
+  document.getElementById('bar-count').textContent = activeItems.length;
+  document.getElementById('bar-done').textContent = activeItems.filter((i) => i.status === 'done').length;
 }

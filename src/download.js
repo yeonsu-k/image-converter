@@ -13,7 +13,7 @@ export function downloadSingle(item) {
 }
 
 export async function downloadZip() {
-  const done = state.items.filter((i) => i.status === 'done' && i.blob);
+  const done = state.items.filter((i) => i.tab === state.activeTab && i.status === 'done' && i.blob);
   if (done.length === 0) {
     alert('변환된 이미지가 없습니다. 먼저 변환을 실행하세요.');
     return;

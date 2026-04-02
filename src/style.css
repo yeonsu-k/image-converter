@@ -94,8 +94,43 @@ header p {
   margin: 0 auto;
 }
 
+/* ── 탭 바 ── */
+.tab-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.tab-btn {
+  padding: 10px 22px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.tab-btn:hover:not(.active) {
+  color: var(--text);
+}
+
+/* ── 탭 패널 ── */
+.tab-panel {
+  display: none;
+}
+.tab-panel.active {
+  display: block;
+}
+
 /* ── 업로드 영역 ── */
-#drop-zone {
+.drop-zone {
   border: 2px dashed var(--border);
   border-radius: var(--radius);
   padding: 56px 24px;
@@ -106,27 +141,23 @@ header p {
     background 0.2s;
   position: relative;
 }
-#drop-zone.drag-over {
+.drop-zone.drag-over {
   border-color: var(--accent);
   background: rgba(124, 111, 247, 0.06);
 }
-#drop-zone input {
+.drop-zone input {
   display: none;
 }
-#drop-zone .icon {
-  font-size: 40px;
-  margin-bottom: 12px;
-}
-#drop-zone h2 {
+.drop-zone h2 {
   font-size: 17px;
   font-weight: 600;
 }
-#drop-zone p {
+.drop-zone p {
   color: var(--text-muted);
   font-size: 13px;
   margin-top: 6px;
 }
-#drop-zone .browse-btn {
+.drop-zone .browse-btn {
   display: inline-block;
   margin-top: 18px;
   padding: 9px 22px;
@@ -138,7 +169,7 @@ header p {
   cursor: pointer;
   transition: background 0.15s;
 }
-#drop-zone .browse-btn:hover {
+.drop-zone .browse-btn:hover {
   background: var(--accent-hover);
 }
 
@@ -300,7 +331,7 @@ header p {
 }
 
 /* ── 이미지 그리드 ── */
-#image-grid {
+.image-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 14px;
@@ -501,7 +532,7 @@ header p {
 }
 
 /* ── Empty state ── */
-#empty-tip {
+.empty-tip {
   display: none;
   text-align: center;
   color: var(--text-muted);
