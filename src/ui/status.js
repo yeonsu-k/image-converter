@@ -45,6 +45,8 @@ export function updateUI() {
   document.getElementById('settings-panel').classList.toggle('visible', hasItems);
   document.getElementById('bottom-bar').classList.toggle('visible', hasItems);
   document.getElementById('empty-tip').style.display = !hasItems ? 'block' : 'none';
+  const hasGif = state.items.some((i) => i.file.type === 'image/gif');
+  document.getElementById('loop-group').style.display = hasGif ? '' : 'none';
   updateBottomBar();
 }
 

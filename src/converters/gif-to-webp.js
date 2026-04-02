@@ -39,7 +39,7 @@ function extractWebpFrameData(bytes) {
   return null;
 }
 
-function buildAnimatedWebp(width, height, frames) {
+function buildAnimatedWebp(width, height, frames, loopCount) {
   const u32 = (n) => new Uint8Array([(n >>> 0) & 0xff, (n >> 8) & 0xff, (n >> 16) & 0xff, (n >> 24) & 0xff]);
   const u24 = (n) => new Uint8Array([n & 0xff, (n >> 8) & 0xff, (n >> 16) & 0xff]);
   const cat = (arrs) => {
@@ -56,7 +56,8 @@ function buildAnimatedWebp(width, height, frames) {
   };
 
   const vp8x = ck('VP8X', cat([new Uint8Array([0x12, 0, 0, 0]), u24(width - 1), u24(height - 1)]));
-  const anim = ck('ANIM', new Uint8Array([0, 0, 0, 0, 0, 0]));
+  // ANIM: background=transparent, loop count (0=무한, 1=1회)
+  const anim = ck('ANIM', new Uint8Array([0, 0, 0, 0, loopCount & 0xff, (loopCount >> 8) & 0xff]));
   const anmfs = frames.map(({ frameData, delay }) =>
     ck('ANMF', cat([
       u24(0), u24(0),
@@ -125,7 +126,8 @@ export async function convertGifToAnimatedWebp(item) {
       webpFrames.push({ frameData, delay: frame.delay });
     }
 
-    item.blob = new Blob([buildAnimatedWebp(w, h, webpFrames)], { type: 'image/webp' });
+    const loopCount = state.loop ? 0 : 1;
+    item.blob = new Blob([buildAnimatedWebp(w, h, webpFrames, loopCount)], { type: 'image/webp' });
     item.outputFmt = 'image/webp';
     setStatus(item, 'done');
     updateSizeInfo(item);
