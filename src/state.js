@@ -1,5 +1,6 @@
 export const state = {
-  items: [],
+  activeTab: 'image',
+  items: [],   // 각 item에 tab: 'image' | 'anim' 프로퍼티 포함
   nextId: 0,
   selectedFmt: 'image/jpeg',
   quality: 0.85,

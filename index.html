@@ -24,15 +24,13 @@
         ></button>
       </header>
 
-      <!-- 업로드 영역 -->
-      <div id="drop-zone">
-        <input type="file" id="file-input" accept="image/*" multiple />
-        <h2>이미지를 드래그하거나 클릭하여 업로드</h2>
-        <p>PNG, JPG, WebP, GIF, BMP, SVG 지원 · 여러 파일 동시 업로드 가능</p>
-        <div class="browse-btn" id="browse-btn">파일 선택</div>
+      <!-- 탭 바 -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="image">이미지 변환</button>
+        <button class="tab-btn" data-tab="anim">애니메이션 변환</button>
       </div>
 
-      <!-- 글로벌 설정 -->
+      <!-- 글로벌 설정 (활성 탭에 파일이 있을 때 표시) -->
       <div id="settings-panel">
         <div class="setting-group">
           <label>출력 포맷</label>
@@ -105,15 +103,44 @@
         </div>
       </div>
 
-      <!-- 이미지 그리드 -->
-      <div id="image-grid"></div>
-      <div id="empty-tip">이미지를 추가하면 여기에 표시됩니다.</div>
+      <!-- 이미지 변환 탭 -->
+      <div class="tab-panel active" id="tab-image">
+        <div class="drop-zone" id="drop-zone-image">
+          <input
+            type="file"
+            id="file-input-image"
+            accept="image/png,image/jpeg,image/webp,image/bmp,image/svg+xml"
+            multiple
+          />
+          <h2>이미지를 드래그하거나 클릭하여 업로드</h2>
+          <p>PNG · JPG · WebP · BMP · SVG 지원 · 여러 파일 동시 업로드 가능</p>
+          <div class="browse-btn" id="browse-btn-image">파일 선택</div>
+        </div>
+        <div class="image-grid" id="grid-image"></div>
+        <div class="empty-tip" id="empty-tip-image">
+          이미지를 추가하면 여기에 표시됩니다.
+        </div>
+      </div>
+
+      <!-- 애니메이션 변환 탭 -->
+      <div class="tab-panel" id="tab-anim">
+        <div class="drop-zone" id="drop-zone-anim">
+          <input type="file" id="file-input-anim" accept="image/gif" multiple />
+          <h2>GIF 파일을 드래그하거나 클릭하여 업로드</h2>
+          <p>GIF 애니메이션 지원 · 여러 파일 동시 업로드 가능</p>
+          <div class="browse-btn" id="browse-btn-anim">파일 선택</div>
+        </div>
+        <div class="image-grid" id="grid-anim"></div>
+        <div class="empty-tip" id="empty-tip-anim">
+          GIF 파일을 추가하면 여기에 표시됩니다.
+        </div>
+      </div>
     </div>
 
     <!-- 하단 고정 바 -->
     <div id="bottom-bar">
       <div class="info">
-        <strong id="bar-count">0</strong>개 이미지 · 변환 완료:
+        <strong id="bar-count">0</strong>개 파일 · 변환 완료:
         <strong id="bar-done">0</strong>개
       </div>
       <div class="bar-btns">

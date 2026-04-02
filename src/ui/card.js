@@ -3,7 +3,7 @@ import { fmtSize, updateUI } from './status.js';
 import { downloadSingle } from '../download.js';
 
 export function renderCard(item) {
-  const grid = document.getElementById('image-grid');
+  const grid = document.getElementById(`grid-${item.tab}`);
   const card = document.createElement('div');
   card.className = 'img-card';
   card.id = 'card-' + item.id;

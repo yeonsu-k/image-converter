@@ -39,7 +39,8 @@ export async function convertItem(item) {
 }
 
 export async function convertAll() {
-  for (const item of state.items) {
+  const activeItems = state.items.filter((i) => i.tab === state.activeTab);
+  for (const item of activeItems) {
     await convertItem(item);
   }
 }
