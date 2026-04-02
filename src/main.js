@@ -3,7 +3,23 @@ import { renderCard } from './ui/card.js';
 import { updateUI } from './ui/status.js';
 import { convertAll } from './converters/index.js';
 import { downloadZip } from './download.js';
+import { initTheme, toggleTheme } from './theme.js';
 import './style.css';
+
+// ── 테마 초기화 ──
+const themeToggle = document.getElementById('theme-toggle');
+
+function updateToggleIcon(theme) {
+  themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+const initialTheme = initTheme();
+updateToggleIcon(initialTheme);
+
+themeToggle.addEventListener('click', () => {
+  const next = toggleTheme();
+  updateToggleIcon(next);
+});
 
 const dropZone = document.getElementById('drop-zone');
 const fileInput = document.getElementById('file-input');

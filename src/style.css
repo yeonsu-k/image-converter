@@ -6,7 +6,8 @@
   padding: 0;
 }
 
-:root {
+:root,
+[data-theme='dark'] {
   --bg: #0f0f11;
   --surface: #1a1a1f;
   --surface2: #242429;
@@ -17,6 +18,23 @@
   --text-muted: #7a7a8a;
   --green: #4ade80;
   --red: #f87171;
+  --bottom-bar-bg: rgba(15, 15, 17, 0.92);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+[data-theme='light'] {
+  --bg: #f5f5f7;
+  --surface: #ffffff;
+  --surface2: #f0f0f5;
+  --border: #d1d1d6;
+  --accent: #7c6ff7;
+  --accent-hover: #6358e8;
+  --text: #1c1c1e;
+  --text-muted: #6e6e73;
+  --green: #34c759;
+  --red: #ff3b30;
+  --bottom-bar-bg: rgba(245, 245, 247, 0.92);
   --radius: 12px;
   --radius-sm: 8px;
 }
@@ -32,6 +50,7 @@ body {
 header {
   text-align: center;
   margin-bottom: 40px;
+  position: relative;
 }
 header h1 {
   font-size: 28px;
@@ -45,6 +64,29 @@ header p {
   color: var(--text-muted);
   margin-top: 8px;
   font-size: 14px;
+}
+
+/* ── 테마 토글 버튼 ── */
+#theme-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+#theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--text);
 }
 
 .container {
@@ -370,7 +412,7 @@ header p {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(15, 15, 17, 0.92);
+  background: var(--bottom-bar-bg);
   backdrop-filter: blur(16px);
   border-top: 1px solid var(--border);
   padding: 14px 24px;
