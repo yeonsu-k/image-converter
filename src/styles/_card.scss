@@ -1,0 +1,176 @@
+// ── 이미지 그리드 ──
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+// ── 이미지 카드 ──
+.img-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.2s;
+
+  &.done {
+    border-color: var(--green);
+  }
+
+  &.error {
+    border-color: var(--red);
+  }
+
+  &:hover .remove-btn {
+    opacity: 1;
+  }
+
+  .thumb-wrap {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .card-body {
+    padding: 12px 14px;
+  }
+
+  .filename {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 6px;
+  }
+}
+
+.size-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.size-arrow {
+  color: var(--text-muted);
+}
+
+.size-after {
+  font-weight: 600;
+
+  &.smaller {
+    color: var(--green);
+  }
+
+  &.larger {
+    color: var(--red);
+  }
+}
+
+.reduction {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(74, 222, 128, 0.12);
+  color: var(--green);
+
+  &.up {
+    background: rgba(248, 113, 113, 0.12);
+    color: var(--red);
+  }
+}
+
+// ── 카드 푸터 ──
+.card-footer {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  gap: 8px;
+
+  .dl-btn {
+    margin-left: auto;
+    padding: 5px 14px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    display: none;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &.visible {
+      display: block;
+    }
+  }
+}
+
+// ── 상태 뱃지 ──
+.status-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+
+  &.waiting {
+    background: rgba(122, 122, 138, 0.15);
+    color: var(--text-muted);
+  }
+
+  &.loading {
+    background: rgba(124, 111, 247, 0.15);
+    color: var(--accent);
+  }
+
+  &.done {
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--green);
+  }
+
+  &.error {
+    background: rgba(248, 113, 113, 0.15);
+    color: var(--red);
+  }
+}
+
+// ── 삭제 버튼 ──
+.remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s;
+}

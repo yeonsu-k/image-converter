@@ -45,6 +45,8 @@ export function updateUI() {
   const activeItems = state.items.filter((i) => i.tab === tab);
   const hasItems = activeItems.length > 0;
 
+  document.getElementById('settings-image').style.display = tab === 'image' ? '' : 'none';
+  document.getElementById('settings-anim').style.display = tab === 'anim' ? '' : 'none';
   document.getElementById('settings-panel').classList.toggle('visible', hasItems);
   document.getElementById('bottom-bar').classList.toggle('visible', hasItems);
   document.getElementById(`empty-tip-${tab}`).style.display = !hasItems ? 'block' : 'none';
