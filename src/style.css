@@ -7,7 +7,7 @@
 }
 
 :root,
-[data-theme='dark'] {
+[data-theme="dark"] {
   --bg: #0f0f11;
   --surface: #1a1a1f;
   --surface2: #242429;
@@ -23,7 +23,7 @@
   --radius-sm: 8px;
 }
 
-[data-theme='light'] {
+[data-theme="light"] {
   --bg: #f5f5f7;
   --surface: #ffffff;
   --surface2: #f0f0f5;
@@ -40,7 +40,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -49,7 +49,7 @@ body {
 
 header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
   position: relative;
 }
 header h1 {
@@ -82,7 +82,10 @@ header p {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    background 0.15s;
 }
 #theme-toggle:hover {
   border-color: var(--accent);
@@ -111,7 +114,9 @@ header p {
   cursor: pointer;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
-  transition: color 0.15s, border-color 0.15s;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
 }
 .tab-btn.active {
   color: var(--accent);
@@ -128,12 +133,17 @@ header p {
 .tab-panel.active {
   display: block;
 }
+.tab-settings {
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+}
 
 /* ── 업로드 영역 ── */
 .drop-zone {
   border: 2px dashed var(--border);
   border-radius: var(--radius);
-  padding: 56px 24px;
+  padding: 40px 24px;
   text-align: center;
   cursor: pointer;
   transition:
@@ -173,20 +183,42 @@ header p {
   background: var(--accent-hover);
 }
 
-/* ── 글로벌 설정 패널 ── */
+/* ── 설정 패널 (업로드 아래) ── */
 #settings-panel {
   display: none;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px 24px;
-  margin-top: 16px;
-  gap: 24px;
-  align-items: flex-end;
+  padding: 14px 20px;
+  margin-top: 12px;
+  gap: 20px;
+  align-items: flex-start;
   flex-wrap: wrap;
 }
 #settings-panel.visible {
   display: flex;
+}
+
+/* ── 포맷 바 (업로드 영역 아래) ── */
+.format-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+  padding: 10px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  flex-wrap: wrap;
+}
+
+.format-bar-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .setting-group {
@@ -258,7 +290,7 @@ header p {
   transition: background 0.2s;
 }
 .toggle-slider::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 16px;
   height: 16px;
@@ -281,7 +313,7 @@ header p {
   gap: 10px;
   min-width: 200px;
 }
-.quality-wrap input[type='range'] {
+.quality-wrap input[type="range"] {
   flex: 1;
   accent-color: var(--accent);
   cursor: pointer;
@@ -335,7 +367,7 @@ header p {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 14px;
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 .img-card {

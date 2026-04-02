@@ -1,10 +1,16 @@
 export const state = {
   activeTab: 'image',
-  items: [],   // 각 item에 tab: 'image' | 'anim' 프로퍼티 포함
+  items: [],
   nextId: 0,
-  selectedFmt: 'image/jpeg',
-  quality: 0.85,
-  loop: true,
+  image: {
+    selectedFmt: 'image/jpeg',
+    quality: 0.85,
+  },
+  anim: {
+    selectedFmt: 'image/gif',
+    quality: 0.85,
+    loop: true,
+  },
 };
 
 export const extMap = {

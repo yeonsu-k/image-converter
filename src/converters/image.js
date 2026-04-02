@@ -10,7 +10,7 @@ export async function convertImage(item) {
       canvas.width = img.naturalWidth;
       canvas.height = img.naturalHeight;
       const ctx = canvas.getContext('2d');
-      if (state.selectedFmt === 'image/jpeg') {
+      if (state.image.selectedFmt === 'image/jpeg') {
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
@@ -23,14 +23,14 @@ export async function convertImage(item) {
             return;
           }
           item.blob = blob;
-          item.outputFmt = state.selectedFmt;
+          item.outputFmt = state.image.selectedFmt;
           setStatus(item, 'done');
           updateSizeInfo(item);
           updateBottomBar();
           resolve();
         },
-        state.selectedFmt,
-        state.quality,
+        state.image.selectedFmt,
+        state.image.quality,
       );
     };
     img.onerror = () => {

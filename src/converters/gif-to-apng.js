@@ -78,8 +78,10 @@ export async function convertGifToApng(item) {
       else if (info.disposal === 3 && prev) compCtx.putImageData(prev, 0, 0);
     }
 
-    const encoded = UPNG.encode(rgbaFrames, w, h, 0, delays);
-    const numPlays = state.loop ? 0 : 1; // 0 = 무한루프, 1 = 1회 재생
+    // quality 1.0 → lossless(0), 미만 → 팔레트 색상 수로 매핑 (최소 4색)
+    const cnum = state.anim.quality >= 1.0 ? 0 : Math.max(4, Math.round(state.anim.quality * 256));
+    const encoded = UPNG.encode(rgbaFrames, w, h, cnum, delays);
+    const numPlays = state.anim.loop ? 0 : 1; // 0 = 무한루프, 1 = 1회 재생
     const result = setApngNumPlays(encoded, numPlays);
 
     item.blob = new Blob([result], { type: 'image/apng' });
