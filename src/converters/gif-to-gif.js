@@ -65,6 +65,7 @@ export async function convertGifToGif(item) {
     const result = modifyGifLoop(new Uint8Array(buffer), loopCount);
     item.blob = new Blob([result], { type: 'image/gif' });
     item.outputFmt = 'image/gif';
+    item.loop = state.anim.loop;
     setStatus(item, 'done');
     updateSizeInfo(item);
     updateBottomBar();

@@ -1,4 +1,5 @@
 import { GifReader } from 'omggif';
+import { state } from '../state.js';
 import { setStatus, updateSizeInfo, updateBottomBar } from '../ui/status.js';
 
 export async function convertGifToWebm(item) {
@@ -77,6 +78,7 @@ export async function convertGifToWebm(item) {
     recorder.onstop = () => {
       item.blob = new Blob(chunks, { type: 'video/webm' });
       item.outputFmt = 'video/webm';
+      item.loop = state.anim.loop;
       setStatus(item, 'done');
       updateSizeInfo(item);
       updateBottomBar();

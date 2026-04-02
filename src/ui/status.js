@@ -6,6 +6,18 @@ export function fmtSize(bytes) {
   return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
 }
 
+const FMT_LABEL = {
+  'image/jpeg': 'JPG',
+  'image/png': 'PNG',
+  'image/webp': 'WebP',
+  'image/gif': 'GIF',
+  'image/apng': 'APNG',
+  'image/bmp': 'BMP',
+  'image/svg+xml': 'SVG',
+  'video/webm': 'WebM',
+};
+const fmtLabel = (mime) => FMT_LABEL[mime] ?? mime;
+
 export function setStatus(item, status) {
   item.status = status;
   const badge = document.getElementById('badge-' + item.id);
@@ -24,6 +36,45 @@ export function setStatus(item, status) {
     (status === 'done' ? ' done' : status === 'error' ? ' error' : '');
   const dlBtn = document.getElementById('dl-' + item.id);
   if (dlBtn) dlBtn.classList.toggle('visible', status === 'done');
+
+  if (status === 'done' && item.outputFmt) {
+    const fmtRow = document.getElementById('fmt-row-' + item.id);
+    if (fmtRow) {
+      const from = fmtLabel(item.file.type);
+      const to = fmtLabel(item.outputFmt);
+      fmtRow.innerHTML =
+        `<span class="fmt-from">${from}</span>` +
+        `<span class="fmt-arrow">→</span>` +
+        `<span class="fmt-to">${to}</span>`;
+    }
+  }
+
+  if (status === 'done' && item.tab === 'anim' && item.blob) {
+    // 썸네일을 변환된 결과물로 교체
+    const blobUrl = URL.createObjectURL(item.blob);
+    if (item.outputFmt === 'video/webm') {
+      const thumb = document.getElementById('thumb-' + item.id);
+      if (thumb) {
+        const video = document.createElement('video');
+        video.src = blobUrl;
+        video.autoplay = true;
+        video.loop = item.loop;
+        video.muted = true;
+        video.playsInline = true;
+        thumb.replaceWith(video);
+      }
+    } else {
+      const thumb = document.getElementById('thumb-' + item.id);
+      if (thumb) thumb.src = blobUrl;
+    }
+
+    // 루프 태그 표시
+    const loopTag = document.getElementById('loop-tag-' + item.id);
+    if (loopTag) {
+      loopTag.textContent = item.loop ? '∞ 무한루프' : '1회 재생';
+      loopTag.className = 'loop-tag' + (item.loop ? ' loop' : ' once');
+    }
+  }
 }
 
 export function updateSizeInfo(item) {
