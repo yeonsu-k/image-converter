@@ -8,15 +8,25 @@
   <body>
     <div class="container">
       <header>
+        <img
+          src="/assets/img_main.png"
+          alt="로고"
+          class="logo"
+          width="75"
+          style="padding-bottom: 1rem"
+        />
         <h1>이미지 <span>변환 · 압축</span> 도구</h1>
         <p>PNG · JPG · WebP 변환 및 품질 압축 · GIF → WebM 변환</p>
-        <button id="theme-toggle" title="테마 전환" aria-label="테마 전환"></button>
+        <button
+          id="theme-toggle"
+          title="테마 전환"
+          aria-label="테마 전환"
+        ></button>
       </header>
 
       <!-- 업로드 영역 -->
       <div id="drop-zone">
         <input type="file" id="file-input" accept="image/*" multiple />
-        <div class="icon">🖼️</div>
         <h2>이미지를 드래그하거나 클릭하여 업로드</h2>
         <p>PNG, JPG, WebP, GIF, BMP, SVG 지원 · 여러 파일 동시 업로드 가능</p>
         <div class="browse-btn" id="browse-btn">파일 선택</div>
@@ -30,21 +40,39 @@
             <button class="fmt-btn active" data-fmt="image/jpeg">JPG</button>
             <button class="fmt-btn" data-fmt="image/png">PNG</button>
             <button class="fmt-btn" data-fmt="image/webp">WebP</button>
-            <button class="fmt-btn" data-fmt="video/webm" title="GIF 파일만 WebM으로 변환됩니다">
+            <button
+              class="fmt-btn"
+              data-fmt="video/webm"
+              title="GIF 파일만 WebM으로 변환됩니다"
+            >
               WebM
-              <span style="font-size: 10px; opacity: 0.65; font-weight: 500">GIF전용</span>
+              <span style="font-size: 10px; opacity: 0.65; font-weight: 500"
+                >GIF전용</span
+              >
             </button>
-            <button class="fmt-btn" data-fmt="image/gif" title="GIF 파일의 루프 설정을 변경합니다">
+            <button
+              class="fmt-btn"
+              data-fmt="image/gif"
+              title="GIF 파일의 루프 설정을 변경합니다"
+            >
               GIF
-              <span style="font-size: 10px; opacity: 0.65; font-weight: 500">GIF전용</span>
+              <span style="font-size: 10px; opacity: 0.65; font-weight: 500"
+                >GIF전용</span
+              >
             </button>
-            <button class="fmt-btn" data-fmt="image/apng" title="GIF 파일을 APNG로 변환합니다">
+            <button
+              class="fmt-btn"
+              data-fmt="image/apng"
+              title="GIF 파일을 APNG로 변환합니다"
+            >
               APNG
-              <span style="font-size: 10px; opacity: 0.65; font-weight: 500">GIF전용</span>
+              <span style="font-size: 10px; opacity: 0.65; font-weight: 500"
+                >GIF전용</span
+              >
             </button>
           </div>
         </div>
-        <div class="setting-group" id="loop-group" style="display:none">
+        <div class="setting-group" id="loop-group" style="display: none">
           <label>루프 재생</label>
           <div class="toggle-wrap">
             <label class="toggle-switch">
@@ -57,13 +85,23 @@
         <div class="setting-group">
           <label>품질 (JPG · WebP)</label>
           <div class="quality-wrap">
-            <input type="range" id="quality-slider" min="1" max="100" value="85" />
+            <input
+              type="range"
+              id="quality-slider"
+              min="1"
+              max="100"
+              value="85"
+            />
             <span class="quality-val" id="quality-val">85</span>
           </div>
         </div>
         <div class="action-btns">
-          <button class="btn btn-outline btn-danger" id="clear-btn">전체 삭제</button>
-          <button class="btn btn-primary" id="convert-all-btn">전체 변환</button>
+          <button class="btn btn-outline btn-danger" id="clear-btn">
+            전체 삭제
+          </button>
+          <button class="btn btn-primary" id="convert-all-btn">
+            전체 변환
+          </button>
         </div>
       </div>
 
@@ -80,7 +118,9 @@
       </div>
       <div class="bar-btns">
         <button class="btn btn-outline" id="convert-all-btn2">전체 변환</button>
-        <button class="btn btn-primary" id="download-zip-btn">ZIP으로 모두 다운로드</button>
+        <button class="btn btn-primary" id="download-zip-btn">
+          ZIP으로 모두 다운로드
+        </button>
       </div>
     </div>
 
