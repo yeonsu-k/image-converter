@@ -1,0 +1,47 @@
+header {
+  text-align: center;
+  margin-bottom: 28px;
+  position: relative;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+
+    span {
+      color: var(--accent);
+    }
+  }
+
+  p {
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-size: 14px;
+  }
+}
+
+#theme-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    background 0.15s;
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+}

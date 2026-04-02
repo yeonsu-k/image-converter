@@ -4,7 +4,7 @@ import { updateUI } from './ui/status.js';
 import { convertAll } from './converters/index.js';
 import { downloadZip } from './download.js';
 import { initTheme, toggleTheme } from './theme.js';
-import './style.css';
+import './styles/main.scss';
 
 // ── 테마 초기화 ──
 const themeToggle = document.getElementById('theme-toggle');
@@ -34,9 +34,6 @@ function switchTab(tab) {
   const panel = document.getElementById('settings-panel');
   const grid = document.getElementById(`grid-${tab}`);
   grid.parentElement.insertBefore(panel, grid);
-  // 탭별 설정 표시
-  document.getElementById('settings-image').style.display = tab === 'image' ? '' : 'none';
-  document.getElementById('settings-anim').style.display = tab === 'anim' ? '' : 'none';
   updateUI();
 }
 

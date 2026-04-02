@@ -1,0 +1,65 @@
+// ── SCSS 변수 (CSS 커스텀 프로퍼티 값 관리) ──
+
+// Dark theme
+$dark-bg: #0f0f11;
+$dark-surface: #1a1a1f;
+$dark-surface2: #242429;
+$dark-border: #2e2e36;
+$dark-text: #e8e8ed;
+$dark-text-muted: #7a7a8a;
+$dark-bottom-bar-bg: rgba(15, 15, 17, 0.92);
+
+// Light theme
+$light-bg: #f5f5f7;
+$light-surface: #ffffff;
+$light-surface2: #f0f0f5;
+$light-border: #d1d1d6;
+$light-text: #1c1c1e;
+$light-text-muted: #6e6e73;
+$light-bottom-bar-bg: rgba(245, 245, 247, 0.92);
+
+// Shared
+$accent: #7c6ff7;
+$accent-hover-dark: #9b96f9;
+$accent-hover-light: #6358e8;
+$green-dark: #4ade80;
+$green-light: #34c759;
+$red-dark: #f87171;
+$red-light: #ff3b30;
+
+$radius: 12px;
+$radius-sm: 8px;
+
+// ── CSS 커스텀 프로퍼티 (런타임 테마 전환용) ──
+:root,
+[data-theme='dark'] {
+  --bg: #{$dark-bg};
+  --surface: #{$dark-surface};
+  --surface2: #{$dark-surface2};
+  --border: #{$dark-border};
+  --accent: #{$accent};
+  --accent-hover: #{$accent-hover-dark};
+  --text: #{$dark-text};
+  --text-muted: #{$dark-text-muted};
+  --green: #{$green-dark};
+  --red: #{$red-dark};
+  --bottom-bar-bg: #{$dark-bottom-bar-bg};
+  --radius: #{$radius};
+  --radius-sm: #{$radius-sm};
+}
+
+[data-theme='light'] {
+  --bg: #{$light-bg};
+  --surface: #{$light-surface};
+  --surface2: #{$light-surface2};
+  --border: #{$light-border};
+  --accent: #{$accent};
+  --accent-hover: #{$accent-hover-light};
+  --text: #{$light-text};
+  --text-muted: #{$light-text-muted};
+  --green: #{$green-light};
+  --red: #{$red-light};
+  --bottom-bar-bg: #{$light-bottom-bar-bg};
+  --radius: #{$radius};
+  --radius-sm: #{$radius-sm};
+}

@@ -9,14 +9,17 @@
     <div class="container">
       <header>
         <img
-          src="/assets/img_main.png"
+          src="src/assets/img_main.png"
           alt="로고"
           class="logo"
           width="75"
           style="padding-bottom: 1rem"
         />
         <h1>이미지 <span>변환 · 압축</span> 도구</h1>
-        <p>PNG · JPG · WebP 변환 및 품질 압축 · GIF → WebM 변환</p>
+        <p>
+          이미지 변환·압축 (PNG, JPG, WebP, BMP, SVG) · GIF 애니메이션 변환
+          (WebM, APNG, WebP)
+        </p>
         <button
           id="theme-toggle"
           title="테마 전환"
@@ -87,10 +90,20 @@
                 <button class="fmt-btn" data-fmt="video/webm">WebM</button>
               </div>
             </div>
-            <div class="setting-group" id="anim-quality-group" style="display: none">
+            <div
+              class="setting-group"
+              id="anim-quality-group"
+              style="display: none"
+            >
               <label>품질 (WebP · APNG)</label>
               <div class="quality-wrap">
-                <input type="range" id="quality-slider-anim" min="1" max="100" value="85" />
+                <input
+                  type="range"
+                  id="quality-slider-anim"
+                  min="1"
+                  max="100"
+                  value="85"
+                />
                 <span class="quality-val" id="quality-val-anim">85</span>
               </div>
             </div>

@@ -1,0 +1,103 @@
+// ── 업로드 영역 ──
+.drop-zone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 40px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+  position: relative;
+
+  &.drag-over {
+    border-color: var(--accent);
+    background: rgba(124, 111, 247, 0.06);
+  }
+
+  input {
+    display: none;
+  }
+
+  h2 {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  p {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 6px;
+  }
+
+  .browse-btn {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 9px 22px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+
+    &:hover {
+      background: var(--accent-hover);
+    }
+  }
+}
+
+// ── 설정 패널 ──
+#settings-panel {
+  display: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  margin-top: 12px;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  &.visible {
+    display: flex;
+  }
+}
+
+// ── 포맷 바 ──
+.format-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+  padding: 10px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  flex-wrap: wrap;
+}
+
+.format-bar-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+// ── 설정 그룹 ──
+.setting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
