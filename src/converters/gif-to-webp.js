@@ -129,6 +129,7 @@ export async function convertGifToAnimatedWebp(item) {
     const loopCount = state.anim.loop ? 0 : 1;
     item.blob = new Blob([buildAnimatedWebp(w, h, webpFrames, loopCount)], { type: 'image/webp' });
     item.outputFmt = 'image/webp';
+    item.loop = state.anim.loop;
     setStatus(item, 'done');
     updateSizeInfo(item);
     updateBottomBar();

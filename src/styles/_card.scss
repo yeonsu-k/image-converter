@@ -36,7 +36,8 @@
     align-items: center;
     justify-content: center;
 
-    img {
+    img,
+    video {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
@@ -55,6 +56,32 @@
     text-overflow: ellipsis;
     margin-bottom: 6px;
   }
+}
+
+.fmt-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 6px;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.fmt-from {
+  color: var(--text-muted);
+}
+
+.fmt-arrow {
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+.fmt-to {
+  color: var(--accent);
 }
 
 .size-row {
@@ -93,6 +120,27 @@
   &.up {
     background: rgba(248, 113, 113, 0.12);
     color: var(--red);
+  }
+}
+
+// ── 루프 태그 ──
+.loop-tag {
+  display: none;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+
+  &.loop {
+    display: inline-block;
+    background: rgba(124, 111, 247, 0.12);
+    color: var(--accent);
+  }
+
+  &.once {
+    display: inline-block;
+    background: rgba(122, 122, 138, 0.12);
+    color: var(--text-muted);
   }
 }
 

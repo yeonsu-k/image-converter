@@ -86,6 +86,7 @@ export async function convertGifToApng(item) {
 
     item.blob = new Blob([result], { type: 'image/apng' });
     item.outputFmt = 'image/apng';
+    item.loop = state.anim.loop;
     setStatus(item, 'done');
     updateSizeInfo(item);
     updateBottomBar();

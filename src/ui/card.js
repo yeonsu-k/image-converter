@@ -14,6 +14,7 @@ export function renderCard(item) {
     </div>
     <div class="card-body">
       <div class="filename" title="${item.file.name}">${item.file.name}</div>
+      <div class="fmt-row" id="fmt-row-${item.id}"></div>
       <div class="size-row">
         <span id="size-before-${item.id}">${fmtSize(item.file.size)}</span>
         <span class="size-arrow">→</span>
@@ -23,6 +24,7 @@ export function renderCard(item) {
     </div>
     <div class="card-footer">
       <span class="status-badge waiting" id="badge-${item.id}">대기 중</span>
+      <span class="loop-tag" id="loop-tag-${item.id}"></span>
       <button class="dl-btn" id="dl-${item.id}">다운로드</button>
     </div>
   `;
