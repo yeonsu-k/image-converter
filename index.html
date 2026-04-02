@@ -30,14 +30,28 @@
             <button class="fmt-btn active" data-fmt="image/jpeg">JPG</button>
             <button class="fmt-btn" data-fmt="image/png">PNG</button>
             <button class="fmt-btn" data-fmt="image/webp">WebP</button>
-            <button
-              class="fmt-btn"
-              data-fmt="video/webm"
-              title="GIF 파일만 WebM으로 변환됩니다"
-            >
+            <button class="fmt-btn" data-fmt="video/webm" title="GIF 파일만 WebM으로 변환됩니다">
               WebM
               <span style="font-size: 10px; opacity: 0.65; font-weight: 500">GIF전용</span>
             </button>
+            <button class="fmt-btn" data-fmt="image/gif" title="GIF 파일의 루프 설정을 변경합니다">
+              GIF
+              <span style="font-size: 10px; opacity: 0.65; font-weight: 500">GIF전용</span>
+            </button>
+            <button class="fmt-btn" data-fmt="image/apng" title="GIF 파일을 APNG로 변환합니다">
+              APNG
+              <span style="font-size: 10px; opacity: 0.65; font-weight: 500">GIF전용</span>
+            </button>
+          </div>
+        </div>
+        <div class="setting-group" id="loop-group" style="display:none">
+          <label>루프 재생</label>
+          <div class="toggle-wrap">
+            <label class="toggle-switch">
+              <input type="checkbox" id="loop-toggle" checked />
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">무한루프</span>
           </div>
         </div>
         <div class="setting-group">

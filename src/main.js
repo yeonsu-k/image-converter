@@ -75,6 +75,11 @@ document.getElementById('convert-all-btn2').addEventListener('click', convertAll
 // ── ZIP 다운로드 ──
 document.getElementById('download-zip-btn').addEventListener('click', downloadZip);
 
+// ── 루프 토글 ──
+document.getElementById('loop-toggle').addEventListener('change', (e) => {
+  state.loop = e.target.checked;
+});
+
 // ── 파일 추가 ──
 function addFiles(files) {
   Array.from(files).forEach((file) => {
