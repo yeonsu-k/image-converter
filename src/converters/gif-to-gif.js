@@ -61,7 +61,7 @@ export async function convertGifToGif(item) {
   setStatus(item, 'loading');
   try {
     const buffer = await item.file.arrayBuffer();
-    const loopCount = state.loop ? 0 : 1; // 0 = 무한루프, 1 = 1회 재생
+    const loopCount = state.anim.loop ? 0 : 1; // 0 = 무한루프, 1 = 1회 재생
     const result = modifyGifLoop(new Uint8Array(buffer), loopCount);
     item.blob = new Blob([result], { type: 'image/gif' });
     item.outputFmt = 'image/gif';

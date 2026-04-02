@@ -18,12 +18,13 @@ function setGifOnlyError(item) {
 }
 
 export async function convertItem(item) {
-  if (GIF_ONLY_FMTS.has(state.selectedFmt) && item.file.type !== 'image/gif') {
+  const fmt = state[state.activeTab].selectedFmt;
+  if (GIF_ONLY_FMTS.has(fmt) && item.file.type !== 'image/gif') {
     setGifOnlyError(item);
     return;
   }
 
-  switch (state.selectedFmt) {
+  switch (fmt) {
     case 'video/webm':
       return convertGifToWebm(item);
     case 'image/gif':

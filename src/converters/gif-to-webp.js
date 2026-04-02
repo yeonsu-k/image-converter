@@ -116,7 +116,7 @@ export async function convertGifToAnimatedWebp(item) {
     const webpFrames = [];
     for (const frame of gifFrames) {
       fCtx.putImageData(frame.imageData, 0, 0);
-      const blob = await new Promise((res) => fCanvas.toBlob(res, 'image/webp', state.quality));
+      const blob = await new Promise((res) => fCanvas.toBlob(res, 'image/webp', state.anim.quality));
       const frameData = extractWebpFrameData(new Uint8Array(await blob.arrayBuffer()));
       if (!frameData) {
         setStatus(item, 'error');
@@ -126,7 +126,7 @@ export async function convertGifToAnimatedWebp(item) {
       webpFrames.push({ frameData, delay: frame.delay });
     }
 
-    const loopCount = state.loop ? 0 : 1;
+    const loopCount = state.anim.loop ? 0 : 1;
     item.blob = new Blob([buildAnimatedWebp(w, h, webpFrames, loopCount)], { type: 'image/webp' });
     item.outputFmt = 'image/webp';
     setStatus(item, 'done');
